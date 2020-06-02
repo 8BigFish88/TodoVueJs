@@ -1,0 +1,22 @@
+{
+  "users": {
+    "-KsjPat5MWCx-dkjNVg8": {
+      "email": "firstmail@gmail.com",
+      "lastVisitAt": 1504772078,
+      "name": "First User",
+      "registeredAt": 1504632260,
+      "username": "firstuser",
+      "usernameLower": "firstuser",
+      "todos": {
+        "-KpOx5Y4AqRr3sB4Ybwj": "-KpOx5Y4AqRr3sB4Ybwj"
+      }
+    }
+  },
+  "todos": {
+    "-KpOx5Y4AqRr3sB4Ybwj": {
+      "userId": "-KsjPat5MWCx-dkjNVg8",
+      "title": "Learn Vue",
+      "completed": false
+    }
+  }
+}
