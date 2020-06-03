@@ -14,12 +14,11 @@
             class="form-input"
           />
           <template v-if="$v.form.email.$error">
-            <span v-if="!$v.form.email.required" class="form-error"
-              >This field is required</span
-            >
-            <span v-else-if="!$v.form.email.email" class="form-error"
-              >This in not a valid email address</span
-            >
+            <span v-if="!$v.form.email.required" class="form-error">This field is required</span>
+            <span
+              v-else-if="!$v.form.email.email"
+              class="form-error"
+            >This in not a valid email address</span>
           </template>
         </div>
         <div class="form-group">
@@ -32,12 +31,11 @@
             class="form-input"
           />
           <template v-if="$v.form.password.$error">
-            <span v-if="!$v.form.password.required" class="form-error"
-              >This field is required</span
-            >
-            <span v-if="!$v.form.password.minLength" class="form-error"
-              >The password must be at least 6 characters long</span
-            >
+            <span v-if="!$v.form.password.required" class="form-error">This field is required</span>
+            <span
+              v-if="!$v.form.password.minLength"
+              class="form-error"
+            >The password must be at least 6 characters long</span>
           </template>
         </div>
 
@@ -46,9 +44,7 @@
         </div>
 
         <div class="form-actions text-right">
-          <router-link :to="{ name: 'Register' }"
-            >Create an account?</router-link
-          >
+          <router-link :to="{ name: 'Register' }">Create an account?</router-link>
         </div>
       </form>
 
@@ -106,7 +102,7 @@ export default {
         .catch(error => alert("🤷‍️" + error.message));
     },
     successRedirect() {
-      const redirectTo = this.$route.query.redirectTo || { name: "Home" };
+      const redirectTo = this.$route.query.redirectTo || { name: "Profile" };
       this.$router.push(redirectTo);
     }
   },

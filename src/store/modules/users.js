@@ -1,7 +1,10 @@
 import { countObjectProperties, removeEmptyProperties } from "@/utils";
 import firebase from "firebase";
 import Vue from "vue";
-import { makeAppendChildToParentMutation } from "@/store/assetHelpers";
+import {
+  makeAppendChildToParentMutation,
+  deleteChildToParentMutation
+} from "@/store/assetHelpers";
 
 export default {
   namespaced: true,
@@ -97,6 +100,10 @@ export default {
     },
 
     appendTodoToUser: makeAppendChildToParentMutation({
+      parent: "users",
+      child: "todos"
+    }),
+    deleteUserTodo: deleteChildToParentMutation({
       parent: "users",
       child: "todos"
     })

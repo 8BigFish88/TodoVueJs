@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-export const makeAppendChildToParentMutation = ({ parent, child }) => (
+const makeAppendChildToParentMutation = ({ parent, child }) => (
   state,
   { childId, parentId }
 ) => {
@@ -10,3 +10,14 @@ export const makeAppendChildToParentMutation = ({ parent, child }) => (
   }
   Vue.set(resource[child], childId, childId);
 };
+
+const deleteChildToParentMutation = ({ parent, child }) => (
+  state,
+  { childId, parentId }
+) => {
+  console.log(state);
+  const resource = state.items[parentId];
+  Vue.delete(resource[child], childId);
+};
+
+export { makeAppendChildToParentMutation, deleteChildToParentMutation };

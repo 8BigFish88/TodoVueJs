@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="col-large push-top">
     <h3>Todos</h3>
     <div class="legend">
       <span>Double click to mark as complete</span>
-      <span> <span class="incomplete-box"></span> = Incomplete </span>
-      <span> <span class="complete-box"></span> = Complete </span>
+      <span>
+        <span class="incomplete-box"></span> = Incomplete
+      </span>
+      <span>
+        <span class="complete-box"></span> = Complete
+      </span>
     </div>
     <div class="todos">
       <div
@@ -14,13 +18,14 @@
         v-bind:class="{ 'is-complete': todo.completed }"
       >
         {{ todo.title }}
-        <i class="fas fa-trash-alt"></i>
+        <i @click="onDelete(todo)" class="fas fa-trash-alt"></i>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   props: {
     todos: {
@@ -29,7 +34,18 @@ export default {
     }
   },
   name: "Todos",
-  methods: {}
+  methods: {
+    onDelete(todo) {
+      this.$store
+        .dispatch("todos/deleteTodo", { todo: todo[".key"] })
+        .then(() => {
+          //this.$store.dispatch("todos/fetchTodos", {
+          //ids: this.$store.state.auth
+          console.log("deleted");
+          //});
+        });
+    }
+  }
 };
 </script>
 

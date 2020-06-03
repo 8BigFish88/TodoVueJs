@@ -12,8 +12,21 @@ const router = new Router({
   routes: [
     {
       path: "/",
+      name: "Home",
+      component: HelloWorld
+    },
+    {
+      path: "/register",
       name: "Register",
-      component: Register
+      component: Register,
+      meta: { requiresGuest: true }
+    },
+    {
+      path: "/me",
+      name: "Profile",
+      component: Profile,
+      props: true,
+      meta: { requiresAuth: true }
     },
     {
       path: "/login",
@@ -28,18 +41,6 @@ const router = new Router({
         store.dispatch("auth/signOut");
       },
       meta: { requiresAuth: true }
-    },
-    {
-      path: "/me",
-      name: "Profile",
-      component: Profile,
-      props: true,
-      meta: { requiresAuth: true }
-    },
-    {
-      path: "/home",
-      name: "Home",
-      component: HelloWorld
     }
   ],
   mode: "history"

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import firebase from "firebase";
+import { deleteChildToParentMutation } from "@/store/assetHelpers";
 
 export default {
   namespaced: true,
@@ -50,15 +51,43 @@ export default {
           return Promise.resolve(state.items[todoId]);
         });
     },
-    deleteTodo({ commit }, id) {
-      console.log(id);
+    deleteTodo({ commit, state, rootState }, todoId) {
+      todoId = todoId.todo;
+      const userId = rootState.auth.authId;
+      //const updates = {};
+      //updates[`todos/${todoId}`] = todo;
+      //updates[`users/${userId}/todos/${todoId}`] = todoId;
       firebase
         .database()
-        .ref(`todos/${id}`)
+        .ref(`todos/${todoId}`)
         .remove()
         .then(() => {
-          commit("removeTodo", id);
-          return Promise.resolve(state.todos);
+          firebase
+            .database()
+            .ref(`users/${userId}/todos/${todoId}`)
+            .remove()
+            .then(() => {
+              commit(
+                "deleteItem",
+                { resource: "todos", id: todoId },
+                { root: true }
+              );
+              console.log(userId);
+              commit(
+                "users/deleteUserTodo",
+                {
+                  parentId: userId,
+                  childId: todoId
+                },
+                { root: true }
+              );
+              //commit(
+              //  "deleteItem",
+              //  { resource: "users/todos", id: todoId },
+              //  { root: true }
+              // );
+              return Promise.resolve(state.items);
+            });
         });
     },
     updateTodo({ state, commit }, id) {

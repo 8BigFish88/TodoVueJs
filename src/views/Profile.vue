@@ -2,8 +2,8 @@
   <div class="flex-grid">
     <div class="col-7 push-top">
       <div class="profile-header">
-        <span class="text-lead"> {{ user.username }}'s recent activity </span>
-        <a href="#">See only uncompleted todos?</a>
+        <span class="text-lead">{{ user.username }}'s todos</span>
+        <a @click="filterTodos">See only uncompleted todos?</a>
       </div>
 
       <hr />
@@ -21,29 +21,44 @@ import { mapGetters } from "vuex";
 import asyncDataStatus from "@/mixins/asyncDataStatus";
 
 export default {
+  data() {
+    return {
+      todosKey: 0
+    };
+  },
   components: {
     TodoList,
     AddTodo
   },
-
   mixins: [asyncDataStatus],
-
   props: {
     edit: {
       type: Boolean,
       default: false
     }
   },
-
+  data() {
+    return {
+      filter: false
+    };
+  },
+  methods: {
+    filterTodos(e) {
+      e.preventDefault();
+      this.filter = true;
+    }
+  },
   computed: {
     ...mapGetters({
       user: "auth/authUser"
     }),
-
     userTodos() {
-      return this.user.todos
-        ? this.$store.getters["users/userTodos"](this.user[".key"])
-        : null;
+      let arrayTodos = this.filter
+        ? this.$store.getters["users/userTodos"](this.user[".key"]).filter(
+            todo => !todo.completed
+          )
+        : this.$store.getters["users/userTodos"](this.user[".key"]);
+      return this.user.todos ? arrayTodos : null;
     }
   },
   created() {

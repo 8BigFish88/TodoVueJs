@@ -1,4 +1,6 @@
 import firebase from "firebase";
+import router from "@/router";
+
 export default {
   namespaced: true,
 
@@ -94,6 +96,7 @@ export default {
         .auth()
         .signOut()
         .then(() => {
+          router.push({ name: "LogIn" });
           commit("setAuthId", null);
         });
     },

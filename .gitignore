@@ -6,7 +6,13 @@ yarn-debug.log*
 yarn-error.log*
 config/*
 .env
-
+firebase.*
+database.json
+.e*
+.f*
+.b*
+yarn.lock
+package-lock.json
 # Editor directories and files
 .idea
 .vscode
